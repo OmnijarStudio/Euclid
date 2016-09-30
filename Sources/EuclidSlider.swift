@@ -22,6 +22,8 @@
 
 import UIKit
 
+
+/// Slider attributes for styling and drawing.
 public enum EuclidSliderAttributes {
     /* Track */
     case maximumTrackTint(UIColor)
@@ -40,7 +42,8 @@ public enum EuclidSliderAttributes {
     case thumbTint(UIColor)
 }
 
-public enum EuclidSliderHandleType: Int {
+/// Slider handles
+public enum EuclidSliderHandleType {
     case semiTransparentWhiteCircle
     case semiTransparentBlackCircle
     case doubleCircleWithOpenCenter
@@ -48,81 +51,13 @@ public enum EuclidSliderHandleType: Int {
     case bigCircle
 }
 
+/// Circular slider control for iOS.
 @IBDesignable
 open class EuclidSlider : UIControl {
     
-    @IBInspectable
-    var minimumTrackTint: UIColor = UIColor(red: 0.0, green: 0.478, blue: 1.0, alpha: 1.0)
+    // MARK: Public Properties
     
-    @IBInspectable
-    var maximumTrackTint: UIColor = UIColor(red: 0.71, green: 0.71, blue: 0.71, alpha: 1.0)
-    
-    @IBInspectable
-    var trackWidth: Float = 2 {
-        didSet {
-            setNeedsDisplay()
-        }
-    }
-    
-    @IBInspectable
-    var trackShadowRadius: Float = 0 {
-        didSet {
-            setNeedsDisplay()
-        }
-    }
-    
-    @IBInspectable
-    var trackShadowDepth: Float = 0 {
-        didSet {
-            setNeedsDisplay()
-        }
-    }
-    
-    @IBInspectable
-    var trackMinAngle: Double = 0.0 {
-        didSet {
-            setNeedsDisplay()
-        }
-    }
-    
-    @IBInspectable
-    var trackMaxAngle: Double = 360.0 {
-        didSet {
-            setNeedsDisplay()
-        }
-    }
-    
-    @IBInspectable
-    var hasThumb: Bool = true {
-        didSet {
-            setNeedsDisplay()
-        }
-    }
-    
-    @IBInspectable
-    var thumbTint: UIColor = UIColor.white
-    
-    @IBInspectable
-    var thumbRadius: Float = 14 {
-        didSet {
-            setNeedsDisplay()
-        }
-    }
-    
-    @IBInspectable
-    var thumbShadowRadius: Float = 2 {
-        didSet {
-            setNeedsDisplay()
-        }
-    }
-    
-    @IBInspectable
-    var thumbShadowDepth: Float = 3 {
-        didSet {
-            setNeedsDisplay()
-        }
-    }
-    
+    /// The value of the element.
     @IBInspectable
     public var value: Float = 0.5 {
         didSet {
@@ -138,6 +73,7 @@ open class EuclidSlider : UIControl {
         }
     }
     
+    /// The minimum value of the slider.
     @IBInspectable
     public var valueMinimum: Float = 0 {
         didSet {
@@ -146,6 +82,7 @@ open class EuclidSlider : UIControl {
         }
     }
     
+    /// The maximum value of the slider.
     @IBInspectable
     public var valueMaximum: Float = 1 {
         didSet {
@@ -154,12 +91,103 @@ open class EuclidSlider : UIControl {
         }
     }
     
+    // MARK: Internal Properties
+    
+    /// The non-selected tint for the circular track.
+    @IBInspectable
+    var minimumTrackTint: UIColor = UIColor(red: 0.0, green: 0.478, blue: 1.0, alpha: 1.0)
+    
+    /// The selected tint for the circular track.
+    @IBInspectable
+    var maximumTrackTint: UIColor = UIColor(red: 0.71, green: 0.71, blue: 0.71, alpha: 1.0)
+    
+    /// The width of the track.
+    @IBInspectable
+    var trackWidth: Float = 2 {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
+    /// The radius of the track's shadow.
+    @IBInspectable
+    var trackShadowRadius: Float = 0 {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
+    /// The depth of the track's shadow.
+    @IBInspectable
+    var trackShadowDepth: Float = 0 {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
+    /// The minimum angle of the track.
+    @IBInspectable
+    var trackMinAngle: Double = 0.0 {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
+    /// The maximum angle of the track.
+    @IBInspectable
+    var trackMaxAngle: Double = 360.0 {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
+    /// Designates whether to use the thumb element.
+    @IBInspectable
+    var hasThumb: Bool = true {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
+    /// The tint of the thumb element.
+    @IBInspectable
+    var thumbTint: UIColor = UIColor.white
+    
+    /// The radius of the thumb element.
+    @IBInspectable
+    var thumbRadius: Float = 14 {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
+    /// The radius of the thumb shadow.
+    @IBInspectable
+    var thumbShadowRadius: Float = 2 {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
+    /// The depth of the thumb shadow.
+    @IBInspectable
+    var thumbShadowDepth: Float = 3 {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
+    // MARK: Private Properties
+    
+    /// The thumb layer.
     private var thumbLayer = CAShapeLayer()
     
+    /// The center of the view.
     private var viewCenter: CGPoint {
         return convert(center, from: superview)
     }
     
+    /// The center of the thumb.
     private var thumbCenter: CGPoint {
         var thumbCenter = viewCenter
         thumbCenter.x += CGFloat(cos(thumbAngle) * controlRadius)
@@ -168,23 +196,28 @@ open class EuclidSlider : UIControl {
         return thumbCenter
     }
     
+    /// The radius of the control.
     private var controlRadius: Float {
         return Float(min(bounds.width, bounds.height)) / 2.0 - controlThickness
     }
     
+    /// The thickness of the control.
     private var controlThickness: Float {
         let thumbRadius = (hasThumb) ? self.thumbRadius : 0
         return max(thumbRadius, trackWidth / 2.0)
     }
     
+    /// The innter radius of the control.
     private var innerControlRadius: Float {
         return controlRadius - trackWidth * 0.5
     }
     
+    /// The outer radius of the control.
     private var outerControlRadius: Float {
         return controlRadius + trackWidth * 0.5
     }
     
+    /// The angle of the thumb.
     private var thumbAngle: Float {
         let normalizedValue = (value - valueMinimum) / (valueMaximum - valueMinimum)
         let degrees = Double(normalizedValue) * (trackMaxAngle - trackMinAngle) +
@@ -196,10 +229,13 @@ open class EuclidSlider : UIControl {
         return Float(radians)
     }
     
+    /// The last position for touch.
     private var lastPositionForTouch = CGPoint(x: 0, y: 0)
     
+    /// The pseudo value for touch.
     private var pseudoValueForTouch = Float(0.0)
     
+    /// The center of the control.
     override open var center: CGPoint {
         didSet {
             setNeedsDisplay()
@@ -214,6 +250,10 @@ open class EuclidSlider : UIControl {
         prepare()
     }
     
+    /**
+        Initializes the control with the specified
+        radius.
+    */
     init(withRadius radius: Double) {
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         
@@ -296,11 +336,25 @@ open class EuclidSlider : UIControl {
             progressPath.fill()
         }
         
+        /**
+            Sets the shadow.
+         
+            - Parameters:
+                - context: Context of the shadow.
+                - depth: Depth of the shadow.
+                - radius: Radius of the shadow.
+        */
         func setShadow(context: CGContext, depth: CGFloat, radius: CGFloat) {
             context.clip(to: CGRect.infinite)
             context.setShadow(offset: CGSize(width: 0, height: depth), blur: radius)
         }
         
+        /**
+            Draws the track.
+         
+            - Parameters:
+                - context: Context of the track.
+        */
         func drawTrack(context: CGContext) {
             let trackPath = circlePath(withCenter: viewCenter,
                                        radius: CGFloat(outerControlRadius))
@@ -331,6 +385,9 @@ open class EuclidSlider : UIControl {
             trackShadowPath.fill()
         }
         
+        /**
+            Draw the thumb component of the control.
+        */
         func drawThumb() {
             let thumbPath = circlePath(withCenter:  thumbCenter,
                                        radius:      CGFloat(thumbRadius))
@@ -383,7 +440,7 @@ open class EuclidSlider : UIControl {
                 // If the touch is on the thumb, start dragging from the thumb.
                 if locationOnThumb(location: location) {
                     lastPositionForTouch = location
-                    calculatePseudoValue(at: thumbCenter)
+                    let _ = calculatePseudoValue(at: thumbCenter)
                     return true
                     
                 } else {
@@ -414,7 +471,12 @@ open class EuclidSlider : UIControl {
         return true
     }
     
-    // Iterate over the provided attributes and set the corresponding values.
+    /**
+        Iterate over the provided attributes and set the corresponding values.
+        
+        - Parameters: 
+            - attributes: Styling & drawing attributes for the slider.
+    */
     public func configure(attributes: [EuclidSliderAttributes]) {
         for attribute in attributes {
             switch attribute {
@@ -451,8 +513,11 @@ open class EuclidSlider : UIControl {
         setNeedsDisplay()
     }
     
-    // MARK: Private Functions
+    // MARK: Private Methods
     
+    /**
+        Prepare the control.
+    */
     private func prepare() {
         contentMode = .redraw
         isOpaque = false
@@ -461,10 +526,27 @@ open class EuclidSlider : UIControl {
         layer.insertSublayer(thumbLayer, at: 0)
     }
     
+    /**
+        Returns the capped value.
+     
+        - Parameters:
+            - value: Value to cap.
+     
+        - Returns: Capped value.
+    */
     private func cappedValue(_ value: Float) -> Float {
         return min(max(valueMinimum, value), valueMaximum)
     }
     
+    /**
+        Generates the circle path to be used when drawing.
+     
+        - Parameters: 
+            - center: Center to draw around.
+            - radius: Radius of the circle.
+     
+        - Returns: Bezier path to draw.
+    */
     private func circlePath(withCenter center: CGPoint,
                             radius: CGFloat) -> UIBezierPath {
         return UIBezierPath(arcCenter: center,
@@ -474,13 +556,29 @@ open class EuclidSlider : UIControl {
                             clockwise: true)
     }
     
-    // True if the provided location is on the thumb, false otherwise.
+    /**
+        Identifies of the provided location is on the thumb.
+     
+        - Parameters:
+            - location: Location of the thumb.
+     
+        - Returns: True if the provided location is on the thumb, 
+                   false otherwise.
+    */
     private func locationOnThumb(location: CGPoint) -> Bool {
         let thumbCenter = self.thumbCenter
         return sqrt(pow(location.x - thumbCenter.x, 2) +
             pow(location.y - thumbCenter.y, 2)) <= CGFloat(thumbRadius)
     }
     
+    /**
+        Calculates the pseudo value.
+     
+        - Parameters: 
+            - point: Point of the angle.
+     
+        - Returns: The pseudo value.
+    */
     private func calculatePseudoValue(at point: CGPoint) -> Float {
         let angle = angleAt(point: point)
         
@@ -494,6 +592,16 @@ open class EuclidSlider : UIControl {
         return targetValue
     }
     
+    /**
+        Calculates the pseudo value, given the source and
+        destination points.
+     
+        - Parameters: 
+            - from: Origin point.
+            - to: Destination point.
+     
+        - Returns: The pseudo value.
+    */
     private func calculatePseudoValue(from: CGPoint, to: CGPoint) -> Float {
         let angle1 = angleAt(point: from)
         let angle2 = angleAt(point: to)
@@ -527,10 +635,27 @@ open class EuclidSlider : UIControl {
         return pseudoValueForTouch
     }
     
+    /**
+        Checks if the slider is clockwise.
+     
+        - Parameters: 
+            - vector1: Vector point of the origin.
+            - vector2: Vector point of the destination.
+     
+        - Returns: True of the slider is moving clockwise, false otherwise.
+    */
     private func isClockwise(vector1: CGPoint, vector2: CGPoint) -> Bool {
         return vector1.y * vector2.x < vector1.x * vector2.y
     }
     
+    /**
+        Gets the angle at a point.
+     
+        - Parameters:
+            - point: Point to check the angle.
+     
+        - Returns: The angle of the point provided.
+    */
     private func angleAt(point: CGPoint) -> Double {
         // Calculate the relative angle of the user's touch point starting from
         // trackMinAngle.

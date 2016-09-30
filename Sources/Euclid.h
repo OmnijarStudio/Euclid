@@ -1,10 +1,4 @@
-//
-//  Euclid.h
-//  Euclid
-//
-//  Created by Phil J. Laszkowicz on 2016-09-18.
-//  Copyright © 2016 Omnijar Studio. All rights reserved.
-//
+
 
 #import <UIKit/UIKit.h>
 

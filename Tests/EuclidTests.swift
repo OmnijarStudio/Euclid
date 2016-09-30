@@ -1,10 +1,3 @@
-//
-//  EuclidTests.swift
-//  EuclidTests
-//
-//  Created by Phil J. Laszkowicz on 2016-09-18.
-//  Copyright © 2016 Omnijar Studio. All rights reserved.
-//
 
 import XCTest
 @testable import Euclid
