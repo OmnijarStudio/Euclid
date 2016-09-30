@@ -3,14 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		7020CFE61D8F19BA00B72794 /* Euclid.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7020CFDC1D8F19BA00B72794 /* Euclid.framework */; };
 		7020CFEB1D8F19BA00B72794 /* EuclidTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7020CFEA1D8F19BA00B72794 /* EuclidTests.swift */; };
 		7020CFED1D8F19BA00B72794 /* Euclid.h in Headers */ = {isa = PBXBuildFile; fileRef = 7020CFDF1D8F19BA00B72794 /* Euclid.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7020D0281D8F241A00B72794 /* EuclidCircularSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7020D0271D8F241A00B72794 /* EuclidCircularSlider.swift */; };
+		7020D0281D8F241A00B72794 /* EuclidSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7020D0271D8F241A00B72794 /* EuclidSlider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,7 +30,7 @@
 		7020CFE51D8F19BA00B72794 /* EuclidTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EuclidTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7020CFEA1D8F19BA00B72794 /* EuclidTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EuclidTests.swift; sourceTree = "<group>"; };
 		7020CFEC1D8F19BA00B72794 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7020D0271D8F241A00B72794 /* EuclidCircularSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EuclidCircularSlider.swift; sourceTree = "<group>"; };
+		7020D0271D8F241A00B72794 /* EuclidSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EuclidSlider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,7 +75,7 @@
 			children = (
 				7020CFDF1D8F19BA00B72794 /* Euclid.h */,
 				7020CFE01D8F19BA00B72794 /* Info.plist */,
-				7020D0271D8F241A00B72794 /* EuclidCircularSlider.swift */,
+				7020D0271D8F241A00B72794 /* EuclidSlider.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -161,7 +161,7 @@
 				};
 			};
 			buildConfigurationList = 7020CFD61D8F19BA00B72794 /* Build configuration list for PBXProject "Euclid" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -200,7 +200,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7020D0281D8F241A00B72794 /* EuclidCircularSlider.swift in Sources */,
+				7020D0281D8F241A00B72794 /* EuclidSlider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
