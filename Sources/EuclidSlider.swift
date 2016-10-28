@@ -40,6 +40,7 @@ public enum EuclidSliderAttributes {
     case thumbShadowDepth(Float)
     case thumbShadowRadius(Float)
     case thumbTint(UIColor)
+    case thumbImage(UIImage)
 }
 
 /// Slider handles
@@ -177,10 +178,22 @@ open class EuclidSlider : UIControl {
         }
     }
     
+    /// The image of the thumb.
+    @IBInspectable
+    var thumbImage: UIImage? = UIColor.white.toImage()
+    {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
     // MARK: Private Properties
     
     /// The thumb layer.
-    private var thumbLayer = CAShapeLayer()
+    private var thumbLayer = CALayer()
+    
+    /// The thumb mask.
+    private var thumbMask = CAShapeLayer()
     
     /// The center of the view.
     private var viewCenter: CGPoint {
@@ -306,7 +319,7 @@ open class EuclidSlider : UIControl {
         }
         
         /**
-            Clips the drawing to the MTCircularSlider track.
+            Clips the drawing to the EuclidSlider track.
          */
         func clipPath() {
             let minAngle = Float(trackMinAngle / 180.0 * M_PI + M_PI)
@@ -395,18 +408,18 @@ open class EuclidSlider : UIControl {
             let thumbHasShadow = thumbShadowDepth != 0 || thumbShadowRadius != 0
             
             if hasThumb && thumbHasShadow {
-                thumbLayer.path = thumbPath.cgPath
-                thumbLayer.fillColor = thumbTint.cgColor
+                thumbMask.path = thumbPath.cgPath
+                thumbMask.fillColor = thumbTint.cgColor
                 
-                thumbLayer.shadowColor = UIColor.black.cgColor
-                thumbLayer.shadowPath = thumbPath.cgPath
-                thumbLayer.shadowOffset = CGSize(width: 0, height: Int(thumbShadowDepth))
-                thumbLayer.shadowOpacity = 0.25
-                thumbLayer.shadowRadius = CGFloat(thumbShadowRadius)
+                thumbMask.shadowColor = UIColor.black.cgColor
+                thumbMask.shadowPath = thumbPath.cgPath
+                thumbMask.shadowOffset = CGSize(width: 0, height: Int(thumbShadowDepth))
+                thumbMask.shadowOpacity = 0.25
+                thumbMask.shadowRadius = CGFloat(thumbShadowRadius)
                 
             } else {
-                thumbLayer.path = nil
-                thumbLayer.shadowPath = nil
+                thumbMask.path = nil
+                thumbMask.shadowPath = nil
                 
                 if hasThumb {
                     thumbTint.setFill()
@@ -431,6 +444,8 @@ open class EuclidSlider : UIControl {
     
     override open func beginTracking(_ touch: UITouch,
                                      with event: UIEvent?) -> Bool {
+        // TODO: Add an inactive touch option for read-only thumb positioning.
+
         if hasThumb {
             let location = touch.location(in: self)
             
@@ -458,6 +473,7 @@ open class EuclidSlider : UIControl {
     
     override open func continueTracking(_ touch: UITouch,
                                           with event: UIEvent?) -> Bool {
+        // TODO: Add an inactive touch option for read-only thumb positioning.
         if !hasThumb {
             return super.continueTracking(touch, with: event)
         }
@@ -507,6 +523,8 @@ open class EuclidSlider : UIControl {
                 self.thumbShadowRadius = value
             case let .thumbShadowDepth(value):
                 self.thumbShadowDepth = value
+            case let .thumbImage(value):
+                self.thumbImage = value
             }
         }
         
@@ -523,7 +541,7 @@ open class EuclidSlider : UIControl {
         isOpaque = false
         backgroundColor = .clear
         
-        layer.insertSublayer(thumbLayer, at: 0)
+        layer.insertSublayer(thumbMask, at: 0)
     }
     
     /**
@@ -665,5 +683,22 @@ open class EuclidSlider : UIControl {
         while (angle < 0) { angle += 360 }
         
         return angle
+    }
+}
+
+/**
+    Extension to the `UIColor` object to support generating an
+    `UIImage` from a color.
+ */
+extension UIColor {
+    func toImage() -> UIImage {
+        let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
+        UIGraphicsBeginImageContextWithOptions(rect.size, true, 0)
+        self.setFill()
+        UIRectFill(rect)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return image!
     }
 }
