@@ -22,36 +22,6 @@
 
 import UIKit
 
-
-/// Slider attributes for styling and drawing.
-public enum EuclidSliderAttributes {
-    /* Track */
-    case maximumTrackTint(UIColor)
-    case minimumTrackTint(UIColor)
-    case trackShadowDepth(Float)
-    case trackShadowRadius(Float)
-    case trackMaxAngle(Double)
-    case trackMinAngle(Double)
-    case trackWidth(Float)
-    
-    /* Thumb */
-    case hasThumb(Bool)
-    case thumbRadius(Float)
-    case thumbShadowDepth(Float)
-    case thumbShadowRadius(Float)
-    case thumbTint(UIColor)
-    case thumbImage(UIImage)
-}
-
-/// Slider handles
-public enum EuclidSliderHandleType {
-    case semiTransparentWhiteCircle
-    case semiTransparentBlackCircle
-    case doubleCircleWithOpenCenter
-    case doubleCircleWithClosedCenter
-    case bigCircle
-}
-
 /// Circular slider control for iOS.
 @IBDesignable
 open class EuclidSlider : UIControl {
@@ -694,22 +664,5 @@ open class EuclidSlider : UIControl {
         while (angle < 0) { angle += 360 }
         
         return angle
-    }
-}
-
-/**
-    Extension to the `UIColor` object to support generating an
-    `UIImage` from a color.
- */
-extension UIColor {
-    func toImage() -> UIImage {
-        let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
-        UIGraphicsBeginImageContextWithOptions(rect.size, true, 0)
-        self.setFill()
-        UIRectFill(rect)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return image!
     }
 }

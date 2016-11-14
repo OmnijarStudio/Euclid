@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7017C9AA1DDA2EF200A3953B /* EuclidSliderAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7017C9A91DDA2EF200A3953B /* EuclidSliderAttributes.swift */; };
+		7017C9AC1DDA2F1800A3953B /* EuclidSliderHandleType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7017C9AB1DDA2F1800A3953B /* EuclidSliderHandleType.swift */; };
+		7017C9AE1DDA2F3C00A3953B /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7017C9AD1DDA2F3C00A3953B /* UIColor.swift */; };
 		7020CFE61D8F19BA00B72794 /* Euclid.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7020CFDC1D8F19BA00B72794 /* Euclid.framework */; };
 		7020CFEB1D8F19BA00B72794 /* EuclidTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7020CFEA1D8F19BA00B72794 /* EuclidTests.swift */; };
 		7020CFED1D8F19BA00B72794 /* Euclid.h in Headers */ = {isa = PBXBuildFile; fileRef = 7020CFDF1D8F19BA00B72794 /* Euclid.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -25,6 +28,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7017C9A91DDA2EF200A3953B /* EuclidSliderAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EuclidSliderAttributes.swift; sourceTree = "<group>"; };
+		7017C9AB1DDA2F1800A3953B /* EuclidSliderHandleType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EuclidSliderHandleType.swift; sourceTree = "<group>"; };
+		7017C9AD1DDA2F3C00A3953B /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		7020CFDC1D8F19BA00B72794 /* Euclid.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Euclid.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7020CFDF1D8F19BA00B72794 /* Euclid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Euclid.h; sourceTree = "<group>"; };
 		7020CFE01D8F19BA00B72794 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -83,6 +89,9 @@
 			children = (
 				7020CFDF1D8F19BA00B72794 /* Euclid.h */,
 				7020D0271D8F241A00B72794 /* EuclidSlider.swift */,
+				7017C9A91DDA2EF200A3953B /* EuclidSliderAttributes.swift */,
+				7017C9AB1DDA2F1800A3953B /* EuclidSliderHandleType.swift */,
+				7017C9AD1DDA2F3C00A3953B /* UIColor.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -217,6 +226,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				7020D0281D8F241A00B72794 /* EuclidSlider.swift in Sources */,
+				7017C9AE1DDA2F3C00A3953B /* UIColor.swift in Sources */,
+				7017C9AA1DDA2EF200A3953B /* EuclidSliderAttributes.swift in Sources */,
+				7017C9AC1DDA2F1800A3953B /* EuclidSliderHandleType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
