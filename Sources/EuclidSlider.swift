@@ -411,21 +411,32 @@ open class EuclidSlider : UIControl {
                 thumbMask.path = thumbPath.cgPath
                 thumbMask.fillColor = thumbTint.cgColor
                 
-                thumbMask.shadowColor = UIColor.black.cgColor
-                thumbMask.shadowPath = thumbPath.cgPath
-                thumbMask.shadowOffset = CGSize(width: 0, height: Int(thumbShadowDepth))
-                thumbMask.shadowOpacity = 0.25
-                thumbMask.shadowRadius = CGFloat(thumbShadowRadius)
+                thumbLayer.shadowColor = UIColor.black.cgColor
+                thumbLayer.shadowPath = thumbPath.cgPath
+                thumbLayer.shadowOffset = CGSize(width: 0, height: Int(thumbShadowDepth))
+                thumbLayer.shadowOpacity = 0.25
+                thumbLayer.shadowRadius = CGFloat(thumbShadowRadius)
                 
             } else {
                 thumbMask.path = nil
-                thumbMask.shadowPath = nil
+                thumbLayer.shadowPath = nil
                 
                 if hasThumb {
                     thumbTint.setFill()
                     thumbPath.fill()
                 }
             }
+            
+            thumbMask.masksToBounds = true
+            thumbMask.contents = thumbImage?.cgImage
+            thumbMask.contentsGravity = kCAGravityCenter
+            /*thumbLayer.frame = CGRect(x: 0,
+                                      y: 0,
+                                      width: 12,
+                                      height: 12)*/
+            
+            //thumbLayer.mask = thumbMask
+            thumbLayer.addSublayer(thumbMask)
         }
         
         let context = UIGraphicsGetCurrentContext()
@@ -541,7 +552,7 @@ open class EuclidSlider : UIControl {
         isOpaque = false
         backgroundColor = .clear
         
-        layer.insertSublayer(thumbMask, at: 0)
+        layer.insertSublayer(thumbLayer, at: 0)//thumbMask, at: 0)
     }
     
     /**
